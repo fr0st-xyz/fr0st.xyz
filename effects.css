@@ -26,14 +26,6 @@ pre, p, li, h1, h2, h3, h4, td, summary, .widget-container {
     opacity: 0.5;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    body:not(.effects-disabled) .pagination-button:not(:disabled):hover {
-        background: rgba(var(--main-color-rgb, 114, 182, 255), 0.18);
-        color: white;
-        box-shadow: 0 0 12px rgba(var(--main-color-rgb, 114, 182, 255), 0.35);
-    }
-}
-
 i {
     text-shadow: 0 0 13px var(--main-color);
 }

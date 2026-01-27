@@ -346,6 +346,70 @@ function updateAge() {
     }
 }
 
+
+/**
+ * WRITTEN: 04.12.2024 (on index.html)
+*/
+function getRelativeDateLabel(date) {
+    const now = new Date();
+    const diffMs = now - date;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 1) {
+        return 'today';
+    }
+
+    if (diffDays >= 365) {
+        const years = Math.floor(diffDays / 365);
+        const remainingDays = diffDays - years * 365;
+        const months = Math.floor(remainingDays / 30);
+        if (months > 0) {
+            return `${years} year${years === 1 ? '' : 's'}, ${months} month${months === 1 ? '' : 's'} ago`;
+        }
+        return `${years} year${years === 1 ? '' : 's'} ago`;
+    }
+
+    if (diffDays >= 30) {
+        const months = Math.floor(diffDays / 30);
+        const remainingDays = diffDays - months * 30;
+        if (remainingDays > 0) {
+            return `${months} month${months === 1 ? '' : 's'}, ${remainingDays} day${remainingDays === 1 ? '' : 's'} ago`;
+        }
+        return `${months} month${months === 1 ? '' : 's'} ago`;
+    }
+
+    return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+}
+
+function setupWrittenDateToggle() {
+    const dateEl = document.querySelector('.written-date');
+    if (!dateEl) return;
+
+    const absoluteLabel = dateEl.textContent.trim();
+    const match = absoluteLabel.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+    if (!match) return;
+    const [, day, month, year] = match;
+    const parsedDate = new Date(Number(year), Number(month) - 1, Number(day));
+    if (Number.isNaN(parsedDate.getTime())) return;
+
+    const relativeLabel = getRelativeDateLabel(parsedDate);
+    dateEl.textContent = relativeLabel;
+    dateEl.dataset.absolute = absoluteLabel;
+    dateEl.dataset.relative = relativeLabel;
+    dateEl.dataset.mode = 'relative';
+
+    dateEl.addEventListener('click', () => {
+        const mode = dateEl.dataset.mode;
+        if (mode === 'relative') {
+            dateEl.textContent = dateEl.dataset.absolute;
+            dateEl.dataset.mode = 'absolute';
+        } else {
+            dateEl.textContent = dateEl.dataset.relative;
+            dateEl.dataset.mode = 'relative';
+        }
+    });
+}
+
 /**
  * POPUP FOR BIRTHDAY
 */
@@ -503,6 +567,7 @@ window.copyDiscord = copyDiscord;
 document.addEventListener('DOMContentLoaded', function() {
     updateAge();
     setInterval(updateAge, 1);
+    setupWrittenDateToggle();
     
     // Check if it's birthday and show popup
     if (isBirthday()) {

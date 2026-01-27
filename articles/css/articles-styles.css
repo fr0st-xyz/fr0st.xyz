@@ -11,6 +11,33 @@
 # ARTICLES
 --------------------------------------------------------------*/
 
+.article-container-default {
+    position: relative;
+    border-radius: 0px; /* was 15 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 30px 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    color: #ffffff;
+    text-align: left;
+    overflow: hidden;
+}
+
+.article-container-default::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--main-color);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.10;
+    z-index: 0;
+}
+
 .article-container {
     position: relative;
     border-radius: 0px; /* was 15 */
@@ -261,6 +288,231 @@
 /*--------------------------------------------------------------*/
 
 
+/*--------------------------------------------------------------
+# Lyrics Article
+--------------------------------------------------------------*/
+.lyrics {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--main-color);
+    border-radius: 0px; /* was 5px */
+    padding: 15px 20px;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.lyrics .lyrics-intro {
+    margin-bottom: 15px;
+    padding-left: 0;
+    color: #e0e0e0;
+    border-bottom: 1px dashed var(--main-color);
+    padding-bottom: 10px;
+}
+
+.lyrics .lyrics-count {
+    margin: 0;
+    color: rgba(var(--main-color-rgb, 114, 182, 255), 0.85);
+    font-size: 0.95em;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.55);
+    box-shadow: inset 0 0 16px rgba(var(--main-color-rgb, 114, 182, 255), 0.08);
+    padding: 6px 10px;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.lyrics .lyrics-song,
+.lyrics .lyrics-artist {
+    cursor: pointer;
+    color: var(--main-color);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.lyrics .lyrics-song {
+    display: inline-block;
+    font-size: 0.85em;
+    margin-bottom: 8px;
+    letter-spacing: 0.6px;
+    padding-left: 24px;
+    color: rgba(var(--main-color-rgb, 114, 182, 255), 0.8);
+    position: relative;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.lyrics .lyrics-song::before {
+    content: ">> ";
+    position: absolute;
+    left: 0;
+    color: rgba(var(--main-color-rgb, 114, 182, 255), 0.65);
+}
+
+.lyrics .lyrics-artist {
+    font-weight: bold;
+}
+
+.lyrics .lyrics-filter-active {
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.15);
+
+    color: #fff;
+}
+
+.lyrics .lyrics-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 18px;
+    margin-top: 10px;
+}
+
+.lyrics .lyrics-search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.55);
+    box-shadow: inset 0 0 16px rgba(var(--main-color-rgb, 114, 182, 255), 0.08);
+    background: transparent;
+    padding: 6px 10px;
+    position: relative;
+}
+
+.lyrics .lyrics-search-row i {
+    color: var(--main-color);
+    font-size: 1.2rem;
+}
+
+.lyrics .lyrics-random {
+    margin: 0;
+    border: 1px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.55);
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.08);
+    color: var(--main-color);
+    font-family: inherit;
+    font-size: 0.9em;
+    padding: 6px 10px;
+    line-height: 1.65;
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 0.2s ease;
+}
+
+.lyrics .lyrics-search {
+    border: none;
+    background: transparent;
+    color: var(--main-color);
+    font-family: inherit;
+    font-size: 0.9em;
+    line-height: 1.65;
+    width: 100%;
+    border-radius: 0;
+    padding-right: 28px;
+}
+
+.lyrics .lyrics-search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.lyrics .lyrics-search:focus {
+    outline: none;
+}
+
+.lyrics .lyrics-search-clear {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    background: transparent;
+    border: none;
+    color: var(--main-color);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 10px;
+    line-height: 1;
+    border-radius: 0;
+    position: absolute;
+    right: 6px;
+}
+
+.lyrics .lyrics-search-clear[hidden] {
+    display: none !important;
+}
+
+.lyrics .lyrics-search-clear:focus,
+.lyrics .lyrics-search-clear:focus-visible {
+    outline: none;
+}
+
+.lyrics .lyrics-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.lyrics .lyrics-show-all {
+    border: 1px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.55);
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.08);
+    color: var(--main-color);
+    font-family: inherit;
+    font-size: 0.9em;
+    padding: 6px 12px;
+    line-height: 1.65;
+    cursor: pointer;
+    border-radius: 0;
+    display: block;
+    margin: 10px auto 0;
+    transition: all 0.2s ease;
+}
+
+body:not(.effects-disabled) .lyrics .lyrics-show-all:hover {
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.18);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(var(--main-color-rgb, 114, 182, 255), 0.25);
+}
+
+.lyrics .lyrics-show-all:focus,
+.lyrics .lyrics-show-all:focus-visible {
+    outline: none;
+}
+
+body:not(.effects-disabled) .lyrics .lyrics-random:hover {
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.18);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(var(--main-color-rgb, 114, 182, 255), 0.25);
+  }
+
+.lyrics .lyrics-random:focus,
+.lyrics .lyrics-random:focus-visible {
+    outline: none;
+}
+
+.lyrics .lyrics-highlight {
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.08);
+    box-shadow: inset 0 0 0 1px rgba(var(--main-color-rgb, 114, 182, 255), 0.2);
+}
+
+.lyrics p {
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.25);
+  }
+
+.lyrics p em {
+    display: block;
+    white-space: pre-line;
+    line-height: 1.6;
+    margin: 0 0 6px;
+    padding-left: 12px;
+    border-left: 2px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.35);
+  }
+
+  .lyrics p b {
+    display: inline-block;
+    margin-top: 6px;
+  }
+
 
 .article-title {
     font-size: 2.5em;
@@ -321,6 +573,92 @@
     .article-content p {
         font-size: 1em;
     }
+}
+
+/*--------------------------------------------------------------
+# ARTICLE NAV
+--------------------------------------------------------------*/
+.article-nav {
+    display: flex;
+    gap: 16px;
+    margin: 12px auto 10px;
+    max-width: 840px;
+    width: min(100%, 840px);
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.article-nav-link {
+    flex: 1 1 0;
+    min-width: 0;
+    border: 1px solid rgba(var(--main-color-rgb, 114, 182, 255), 0.45);
+    background-color: color-mix(in srgb, var(--main-color) 5%, transparent);
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.article-nav-label {
+    font-size: 0.85em;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.article-nav-prev .article-nav-label::before {
+    content: "←";
+}
+
+.article-nav-next .article-nav-label {
+    justify-content: flex-end;
+}
+
+.article-nav-next .article-nav-label::after {
+    content: "→";
+}
+
+.article-nav-title {
+    font-size: 1em;
+    color: #fff;
+    line-height: 1.4;
+    max-height: calc(1.4em * 1);
+    overflow: hidden;
+    white-space: normal;
+}
+
+.article-nav-next {
+    text-align: right;
+    align-items: flex-end;
+}
+
+@media (max-width: 600px) {
+    .article-nav {
+        flex-direction: column;
+    }
+}
+
+/*--------------------------------------------------------------
+# ARTICLE NAV (EFFECTS DISABLED)
+--------------------------------------------------------------*/
+body:not(.effects-disabled) .article-nav-link:hover {
+    background: rgba(var(--main-color-rgb, 114, 182, 255), 0.12);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(var(--main-color-rgb, 114, 182, 255), 0.10);
+}
+
+.effects-disabled .article-nav-link:hover {
+    background-color: color-mix(in srgb, var(--main-color) 5%, transparent);
+    color: var(--main-color);
+    box-shadow: none;
+}
+
+.effects-disabled .article-nav-link {
+    background-color: color-mix(in srgb, var(--main-color) 5%, transparent);
 }
 
 /*--------------------------------------------------------------

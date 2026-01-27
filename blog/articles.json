@@ -1,5 +1,21 @@
 [
   {
+    "title": "I'll be your first visitor",
+    "description": "Have a website or blog? Send it to me and I will be one of your first visitors.",
+    "link": "articles/i-will-be-your-first-visitor.html",
+    "class": "article-one",
+    "thumbnail": "./src/media/blog-thumbnails/ill-be-your-first-visitor.png",
+    "date": "January 27, 2026"
+  },
+  {
+    "title": "Lyrics",
+    "description": "Lyrics i like and want to keep.",
+    "link": "articles/lyrics.html",
+    "class": "article-one",
+    "thumbnail": "./src/media/blog-thumbnails/lyrics.png",
+    "date": "January 27, 2026"
+  },
+  {
     "title": "How to Install and Set Up AtlasOS on Windows",
     "description": "Learn how to install AtlasOS, activate Windows, and get your PC ready without bloat.",
     "link": "articles/install-and-set-up-atlasos-windows.html",
@@ -30,14 +46,6 @@
     "class": "article-one",
     "thumbnail": "./src/media/blog-thumbnails/winmacros.png",
     "date": "February 26, 2025"
-  },
-  {
-    "title": "WinConfigs: Simplifying Windows Setup",
-    "description": "A script that I made to simplify Windows setup using automation and system tweaks.",
-    "link": "articles/winconfigs-simplifying-windows-setup.html",
-    "class": "article-one",
-    "thumbnail": "./src/media/blog-thumbnails/winconfigs.png",
-    "date": "February 5, 2025"
   },
   {
     "title": "Why Tailwind CSS Isn't for Me",

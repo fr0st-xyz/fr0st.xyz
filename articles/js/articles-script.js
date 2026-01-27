@@ -137,8 +137,6 @@ function initViewCounters() {
     });
 }
 
-
-
 /**
  * COPY BUTTON FUNCTIONALITY FOR CODEBLOCKS IN BLOGS
  */
@@ -220,6 +218,96 @@ function copyCode(button) {
     });
 }
 
+/**
+ * ARTICLE NEXT / PREVIOUS NAV
+ */
+async function initArticleNav() {
+    const container = document.querySelector('[class^="article-container"], [class*="article-container"]');
+    if (!container) return;
+
+    const currentPath = window.location.pathname.replace(/^\/+/, '');
+
+    try {
+        const response = await fetch('/blog/articles.json', { cache: 'no-cache' });
+        if (!response.ok) return;
+        const articles = await response.json();
+        if (!Array.isArray(articles) || !articles.length) return;
+
+        const index = articles.findIndex((item) => {
+            if (!item || !item.link) return false;
+            return item.link.replace(/^\/+/, '') === currentPath;
+        });
+
+        if (index === -1) return;
+
+        const prev = articles[index - 1] || null;
+        const next = articles[index + 1] || null;
+        if (!prev && !next) return;
+
+        const nav = document.createElement('div');
+        nav.className = 'article-nav';
+
+        if (prev) {
+            const prevLink = document.createElement('a');
+            prevLink.className = 'article-nav-link article-nav-prev';
+            prevLink.href = `/${prev.link.replace(/^\/+/, '')}`;
+            prevLink.innerHTML = `
+                <span class="article-nav-label">Previous</span>
+                <span class="article-nav-title">${prev.title}</span>
+            `;
+            nav.appendChild(prevLink);
+        }
+
+        if (next) {
+            const nextLink = document.createElement('a');
+            nextLink.className = 'article-nav-link article-nav-next';
+            nextLink.href = `/${next.link.replace(/^\/+/, '')}`;
+            nextLink.innerHTML = `
+                <span class="article-nav-label">Next</span>
+                <span class="article-nav-title">${next.title}</span>
+            `;
+            nav.appendChild(nextLink);
+        }
+
+        container.parentNode.insertBefore(nav, container.nextSibling);
+
+        const applyTitleEllipsis = () => {
+            const titles = nav.querySelectorAll('.article-nav-title');
+            titles.forEach((titleEl) => {
+                const fullText = titleEl.dataset.fullTitle || titleEl.textContent.trim();
+                titleEl.dataset.fullTitle = fullText;
+                titleEl.textContent = fullText;
+
+                if (titleEl.scrollHeight <= titleEl.clientHeight) {
+                    return;
+                }
+
+                let low = 0;
+                let high = fullText.length;
+                let best = 0;
+
+                while (low <= high) {
+                    const mid = Math.floor((low + high) / 2);
+                    titleEl.textContent = `${fullText.slice(0, mid).trimEnd()}...`;
+                    if (titleEl.scrollHeight <= titleEl.clientHeight) {
+                        best = mid;
+                        low = mid + 1;
+                    } else {
+                        high = mid - 1;
+                    }
+                }
+
+                titleEl.textContent = `${fullText.slice(0, best).trimEnd()}...`;
+            });
+        };
+
+        requestAnimationFrame(applyTitleEllipsis);
+        window.addEventListener('resize', applyTitleEllipsis);
+    } catch (error) {
+        console.warn('Failed to load article navigation.', error);
+    }
+}
+
 
 /**
  * LANGUAGE DETECTION FOR ARTICLES
@@ -280,6 +368,7 @@ function detectAndUpdateLanguages() {
 document.addEventListener('DOMContentLoaded', function () {
     detectAndUpdateLanguages();
     initViewCounters();
+    initArticleNav();
 
     // back to top button
     const existingBtn = document.getElementById('back-to-top');

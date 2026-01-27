@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-----METAS----->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<meta name="theme-color" content="#72B6FF">
+    <meta name="description" content="My personal space on the web.">
+	<meta name="keywords" content="fr0st-iwnl, frost, fr0st, frostiwnl, frost github, fr0st, frost github, lyrics, music, songs">
+	<meta name="author" content="fr0st">
+	<meta name="robots" content="index, follow">
+	<meta name="revisit-after" content="7 days">
+
+    <!-- Open Graph (for social sharing) -->
+	<meta property="og:title" content="">
+    <meta property="og:description" content="My personal space on the web.">
+    <meta property="og:image" content="https://fr0st.xyz/src/media/blog-thumbnails/lyrics.png">
+    <meta property="og:url" content="https://fr0st.xyz">
+    <meta property="og:site_name" content="fr0st.xyz">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+	<meta name="twitter:title" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="My personal space on the web.">
+    <meta name="twitter:image" content="https://fr0st.xyz/src/media/blog-thumbnails/lyrics.png">
+
+	<!-----TITLE------>
+	<title>fr0st - Lyrics</title>
+
+	<!-----SCRIPT-JS------>
+	<script src="/src/js/components/base.js" type="module" defer></script>
+    <script src="/blog/blog-script.js" type="module" defer></script>
+    <script src="/articles/js/articles-script.js" type="module" defer></script>
+
+    <!-----LINKS------>
+	<link rel="icon" type="image/png" href="/src/media/favicons/favicon-ocean.png" id="favicon">
+	<link rel="preload" as="font" href="src/fonts/terminus-webfont.woff2" type="font/woff2" crossorigin="anonymous">
+	<link rel="stylesheet" href="/articles/css/articles-styles.css">
+	<link rel="alternate" type="application/rss+xml" title="fr0st&#39;s Webpage RSS" href="https://fr0st.xyz/rss.xml">
+	<!---FONT AWESOME------->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+	<!-- GLIGHTBOX CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+	
+	<!-- PRISM.JS FOR SYNTAX HIGHLIGHTING -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+	<!----noise.mp4---->
+	<!---src="https://files.catbox.moe/hop8wg.mp4"--->
+	<video
+		preload="none"
+		onloadstart="this.playbackRate = 0.65;"
+		autoplay
+		muted
+		loop
+		playsinline
+		id="noise_vid"
+		src="/src/media/noise.mp4"
+		poster="/src/media/noise_static.png"
+		>
+	</video>
+
+	<!----rain_bg.mp4---->
+	<!---src="https://files.catbox.moe/i7le27.mp4"--->
+	<video
+		preload="none"
+		onloadstart="this.playbackRate = 0.85;"
+		autoplay
+		muted
+		loop
+		playsinline
+		id="rain_vid"
+		src="/src/media/rain_bg.mp4"
+		poster="/src/media/rain_bg_static.png"
+		>
+	</video>
+
+		<img
+			id="g59_overlay"
+			src="/src/media/g59.png"
+			alt="G59"
+			width="1920"
+			height="1080"
+			loading="eager"
+			decoding="async"
+			fetchpriority="high"
+		>
+	<div id="snow-container"></div>
+	<div class="vignette"></div>
+	<div id="videohue"></div>
+	<div id="canvas">
+		<header>
+			<pre id="title">
+    ____       ____         __ 
+   / __/_____ / __ \ _____ / /_
+  / /_ / ___// / / // ___// __/
+ / __// /   / /_/ /(__  )/ /_  
+/_/  /_/    \____//____/ \__/  
+			</pre>
+            <div>
+			<p class="welcome"></p>
+		<br>
+		<p class="effects" id="changeEffects">Want some fancy effects? Click <a id="changeEffectsLink">HERE</a> to turn them on.</p>
+		</header>
+		<br>
+
+        <!--------- NAVBAR ------------->
+        <nav id="nav_tabs">
+			<ul>
+				<li><a href="/blog.html"><i class="fa-solid fa-less-than-equal"></i></a></li>
+                <li><a href="https://github.com/fr0st-iwnl" target="_blank"><i class="fa-brands fa-github"></i></a></li>
+			</ul>
+		</nav>
+
+        <!--------- ARTICLE ------------->
+        <div class="article-container-default">
+			<!--- use "custom-title" as an attribute if u want to change the title to a custom one --->
+            <h1 class="article-title">Lyrics</h1>
+			<p class="counter-box">
+				<i class="fa-solid fa-eye"></i>
+				Views:
+				<span class="counter">
+					<script async src="https://voux.fr0st.xyz/embed/kb7s3t63.js"></script>
+				</span>
+			</p>
+			<br>
+			<br>
+            <p class="article-date"><!-- pulled from blog/articles.json --></p>
+            <div class="article-content">
+				<p><b>I sometimes come across lyrics that I really like, so I decided to keep them here. 
+					This page is mostly for me, and I know nobody really cares anyway.</b></p>
+				<div class="lyrics">
+                    <!--<p class="lyrics-intro"><b>I sometimes come across lyrics that I really like, so I decided to keep them here.
+					This page is mostly for me, and I know nobody really cares anyway.</b></p>-->
+                    <div class="lyrics-meta">
+                        <div class="lyrics-search-row">
+                            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                            <input type="search" class="lyrics-search" placeholder="Search lyrics, song, or artists.." aria-label="Search lyrics">
+                            <button type="button" class="lyrics-search-clear" aria-label="Clear search" hidden>×</button>
+                        </div>
+                        <div class="lyrics-actions">
+                            <p class="lyrics-count"></p>
+                            <button type="button" class="lyrics-random">Random lyric (R)</button>
+                        </div>
+                    </div>
+
+					<p data-song="April Mourning"><em>Fuck an idol, no one towers over me
+					Hopefully, openly talking 'bout all of my emotions
+					Ocean deep, sink into the bottom
+					Opening up all my fucking problems
+					Bitch, I promise I'll become forgotten, rotten
+					Fucking spotted on the concrete
+					Six times three
+					If I was a key on the board, I'd probably be delete or escape
+					Either way, you're pressing me, uh</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="AM/PM"><em>I fall asleep, but I don't want to rise out of bed
+					Escape to my dreams, I hope some of them wet
+					The sun shinin' bright as I open my eyes
+					And then close up the blinds, and wish that I was dead
+					Some people wanna call me a pussy
+					Some people wanna call me a bitch
+					Some people wanna tell me that it ain't that bad
+					"Lift up that chin"
+					I wonder what they'd say after I slice my wrists
+					Two slits, I'm gone in the endless abyss
+					One way street, and I need a fucking lift
+					If sleep is the cousin of death, I guess me and $lick countin' sheep 'til we outta breath, I mean, shit!
+					Po-pourin' my emotions in a styrofoam cup
+					Gulping it down 'till I don't give a fuck</em> 
+					― <b>Yung Slumber</b></p>
+
+					<p data-song="nothingleftnothingleft"><em>Suicide, suicide, let's all commit suicide
+					End the human race just like the dinosaurs, I can't decide
+					Would you rather drink the punch or do you wanna burn alive?
+					No salvation, salutations, nothing left after we die
+					(Feed me with your hate) Yeah, now that's a fucking start
+					(Stab me in the skull) Make sure that the blade is sharp
+					(Put my body in a ditch) Let the larva eat my heart
+					(Infest my dead body) Let it rip my flesh apart</em> 
+					― <b>Norman Atomic</b>
+					
+					<em>War, power, sickness, death
+					Famine, terror, toxic sex
+					Hate, fear, greed, stress
+					Fire, ashes, nothing left</em>
+					― <b>Norman Atomic & Anthony Mars</b>
+					</p>
+
+
+					<p data-song="A Death in the Ocean Would Be Beautiful"><em>Opiates, I'm a junkie, fuck the money</em> 
+					― <b>Tony With The Tommy</b></p>
+
+					<p data-song="Whoa, I'm Woeful"><em>I'm the kind of motherfucker that don't go outside
+					Pale skin boy, with the rope tied tight
+					Gotta light up the blunt just to choke, 'bout time I feel something
+					Climbing out of my funk, then I jump back in
+					Punching a hole in the wall, let me in
+					Bloody knuckles, unbuckle the belt, got a devilish grin
+					Unfuckable, melt me away with my sins
+					I'm in trouble, the bubbles should give you a hint
+					Bitch, I'm sinking again in the bottomless pit
+					Bitch, I'm rotten from all of the toxins I'm poppin'
+					I'm poppin' from all of the toxins I'm copping</em> 
+					― <b>Lord Of Loneliness</b></p>
+
+					<p data-song="Kill Yourself (Part III)"><em>Always boasting my emotions on how I'm so fucking broken
+					Think I'm joking when I'm talkin' about blowing my head open
+					'Til the moment you walk in and find my body motionless
+					Wrists slit, thoughts of $licky falling in an open pit, shit
+					Always burn my bridges 'cause I'd rather fall in ditches
+					If life's a game of inches, then my dick has been the biggest
+					And my goal's to fuck the world until that motherfucker's twitchin'
+					Lane switchin', same mission, to die and blame my addiction, bitch</em> 
+					― <b>$lick $loth</b></p>
+
+					<p data-song="Kill Yourself (Part III)"><em>They figure me a dead motherfucker
+					But I'm just a motherfucker that wanna be dead
+					Snow Leopard with the lead in his head, turnin' me into a sweater
+					Bitches use me as their fucking bedspread
+					I be the silhouette of a sunset
+					Smoke a cigarette while I compress my depression
+					Stare into the violet fluorescent lights, makes me violent
+					I'm tryna get the highest I can get before I overdose and die
+					My ribs are nothing but an empty cage, black hole in my chest
+					Big bang, Yung Plague on the tip of a wave
+					In my head, I feel like I'm a guest, so I'ma throw it all away
+					Because when I am dead, I will be nothing decomposin' in a grave
+					I'm matter, but I don't matter
+					I can feel my skull shatter from the dull chatter
+					Brain splattered on the wall
+					Grey stains won't dissolve, gonna have to paint it all</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="Shattered Amethyst"><em>Do you feel my essence? Depressing presence
+					My main goal in death is to blow up heaven
+					Don't get the message, can't teach the lesson
+					Just a feeling that you get when you hang with peasants</em> 
+					― <b>$lick $loth</b></p>
+
+					<p data-song="Fold"><em>Pay-pay me, pay me, pay me
+					Bitch, I'm broke I need some fuckin' tape
+					Y'all think y'all are wavy, but I be the motherfuckin' wave
+					Everything is gravy, place me safely in my fuckin' grave
+					I'm a shady motherfucker steady sippin' lemonade</em> 
+					― <b>Oddy Nuff da $now Leopard</b></p>
+
+					<p data-song="#1 Stunna"><em>Everyday I hold my breath, tryna meet death  
+					No check, no balance, and no debt 
+					No money, no cars but I'm on flex</em> 
+					― <b>Yung Christ</b></p>
+
+					<p data-song="Lo-Fi (Kill 'Em All)"><em>Loneliness is my finesse
+					Satan in the flesh
+					Me and God didn't mesh
+					Unlimited freshness
+					Grinnin' for death
+					Money, I need less
+					(Money, I need less)
+					Fuck a fuckin' check
+					Check back with the TEC
+					MAC-10 make you wet
+					Fuck giving it thought, when I could just get head
+					Layin' in bed thinking 'bout how my life is like my bank account
+					Bitch, it's empty and spent</em> 
+					― <b>Norman Atomic</b></p>
+
+					<p data-song="Prince Tulip"><em>Don't give a fuck about yesterday, or give a fuck about today
+					And tomorrow gonna be the same fucking way</em> 
+					― <b>Anthony Mars</b></p>
+
+					<p data-song="Sleepy Hollow (Slopped & Chewed)"><em>Slightly overrated, mean I'm over being rated by cops, critics
+					Cynical assholes that ain't creative
+					My styles jagged but my attitude seems jaded
+					Like a diamond thats shine has really faded
+					From sitting on some chick's finger too long
+					I'm in the basement huffing paintings of animals in cages, uh
+					You ready? I've been waitin'
+					Oddy Nuff will leave your body shakin', probably achin'
+					Man, fuck a vacation
+					My narration of your duration ends in mutation with starvation and salvation</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="$Hrimp Poboy"><em>Sleepin' through the weekend, suicidal seasons
+					I just wanna die
+					Don't have no fuckin' reason</em> 
+					― <b>$crim</b></p>
+
+					<p data-song="$Hrimp Poboy"><em>I wanna say screw it but I know improvement will prove it
+					Fuck it</em> 
+					― <b>Oddy Nuff da $now Leopard</b></p>
+
+					<p data-song="Diemonds"><em>What I hate most in this life is a long night
+					Four walls and no calls, and no lights
+					But the moonlight creepin' through the blinds
+					Ceiling fan on high spinnin'
+					I'm beginning to believe that tonight is the night
+					Dead by dawn
+					I'll shred my palms to the end of my arm
+					I'm spread and gone, embalmed
+					Put me in the dirt where I belong
+					Existence is overrated anyway
+					Fifty years later, they won't remember you're dead
+					Six billion people living as civilians, and I hated them all
+					I should have been a vermillion reptilian living in a swamp
+					(At least I'd have scales to protect me from the pain)</em> 
+					― <b>Ruby Da Cherry</b></p>
+
+					<p data-song="New Chains, Same Shackles"><em>Another day waitin' for death
+					Every day that I waste on my list of regrets, so I tell myself
+					"It's okay, day after next, we'll make all these arrangements to change, you can better yourself" (Uh-oh)
+					I know I'm wasting my breath as I inhale
+					I know I'm escaping my death as I inhale
+					I can't recall why I'm suffocating
+					My lungs are failin'</em> 
+					― <b>Raindrop Walka</b></p>
+
+					<p data-song="5 Grand At 8 To 1"><em>Ain't nobody fuckin' with me like they used to
+					Open seat in the coupe so I scooped you
+					I get caught up in my thoughts and I can't think right
+					Caught up in a nightmare so I don't sleep right
+					I just want them to treat me like they used to
+					I just want something real that I'm used to
+					I just want them to treat me like—uh, ayy
+					I just want something real that I'm—uh, yeah</em> 
+					― <b>Maire de Gras Ville</b></p>
+
+					<p data-song="I Miss My Dead Friends"><em>Yeah, it sucks
+					When you realize life is fast and I'm a fuckin' cashless organism
+					Tryna thrive inside a habitat that's plastic</em> 
+					― <b>Ruby Da Cherry</b></p>
+
+					<p data-song="I Ended Up Driving The Camaro Off The Causeway Bridge"><em>I been disrespected my whole life
+					What makes you think I give a fuck what you think?
+					I pay no mind, I keep thinking about the afterlife
+					After life is over I'll be casting dice with Satan
+					Just to pass the time slower
+					Closer to the lower polar lasting fire
+					Suicide ain't sacrifice, it's the asking price in the black void
+					No flashing lights, I'm fucking satisfied with gnats and flies
+					Snacking on my calves and thighs
+					Detach my eyes, and hang 'em by the casket pile</em> 
+					― <b>Yung Mutt</b></p>
+
+					<p data-song="Handzum $uicide"><em>I'm a different kind of breed, the one that don't even breathe
+					The one you ain't gotta feed, just rob and take what I need
+					Fucking product of the $uicide
+					Fucking spawn of Satan
+					Cuttin' on my wrist, while these women fornicating
+					I'm debating to take my life, forsaken by sacrifice (Sacrficice)
+					Mistaken for something nice (Nice)</em> 
+					― <b>$lick $loth</b></p>
+
+					<p data-song="Leave Me Alone"><em>Fuck everyobody
+					Galaxies fall when I'm comin' down, nobody comes around
+					I can't do no right
+					Twenty stories high, holdin' up the sky
+					They wanna say goodbye, I just want better times
+					But I done got replaced
+					I'm on my own and I'm tired
+					Dreams fall like nothing, dead slow, dead
+					Go on without plunging
+					I'm so numb, I'm so numb, have you ever been this low?
+					(Fuck no)</em> 
+					― <b>LIL HALF CUT</b></p>
+
+					<p data-song="Leave Me Alone"><em>I have realized I wanna rewind my whole life, it seems fine
+					I have realized that I am alone
+					$now Leopard wants to freeze and die
+					Winter breath, wishin' for death in the snow
+					Winter breath, wishin' for death in the snow
+					I am zero, anti-hero
+					Winter death, wishin' for breath— but I choke
+					Whisperin' help but no one is listening
+					Goddammit, my piss, it stings
+					I'm planning on repeating history
+					Repeat it blissfully, revealing misery</em> 
+					― <b>LIL LONELY</b></p>
+
+					<p data-song="Bags"><em>Fuck your God, I'll burn him on the cross
+					Burnin' Buddha 'til my eyes are crossed</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="Bags"><em>Misunderstood, but fuck it I'm cool</em> 
+					― <b>$crim</b></p>
+
+					<p data-song="Kamehameha (Kamikaze Remix)"><em>Pass me a loaded gun
+					I'm trying to spill my brains out
+					Livin' life just ain't no fun
+					Pray to Satan to come and save me now, we had a deal</em> 
+					― <b>Yung Christ</b></p>
+
+					<p data-song="Aphrodite (The Aquatic Ape Theory)"><em>Manifesto of depression, stocking up my weapons
+					Natural Born Killers, get relief from my aggression
+					Symbol of oppression, triple six flexin'
+					Fuckboys love my seconds, smoking dope while I'm textin'
+					Sounds so simple, right? Artesian on some ice
+					Both wrists sliced, killing myself every night
+					Motherfuckers wanna adopt the dark, but I was born in it</em> 
+					― <b>$crim</b></p>
+
+					<p data-song="Aphrodite (The Aquatic Ape Theory)"><em>Death in the night, hidin' from the light
+					Everything changes when you make it out alive
+					Middle of the night, hopin' that I die
+					Middle of the night, always fucking high
+					Got a life I'm tryna shake
+					Get the fuck away
+					Die slow for me, baby
+					Let's get the fuck away
+					Die slow, let's get the fuck away</em> 
+					― <b>$crim & Ruby da Cherry</b></p>
+
+					<p data-song="Aphrodite (The Aquatic Ape Theory)"><em>I'm hopin' that someone will come and slit my throat
+					And then I can finally overdose
+					Shawty lookin' like she needs some rest
+					So in the grave, she goes
+					I'm right beside her, she tryna get what's in my chest
+					Hollow ribs, she doesn't know that I'm a ghost
+					Hauntin' the air with my sweet decay
+					For death, I do not delay
+					Yeah, that's why my skin is grey</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="A Little Trauma Can Be Illuminating, And I'm Shining Like The Sun"><em>My type of vacation is isolation
+					I wanna be left alone, gonna see how long I'll hold
+					Until I end up fighting off temptations
+					Of self-annihilation (Self-annihilation)
+					I'm holdin' myself hostage by all of this emotional blockage
+					I can't fuckin' stop it now, it's all coming out (It's all coming out!)
+					A verbal kind of vomit, I wish I could gut it out (Gut it out!)
+					Take away my stomach, fuckin' rip it all apart (Apart)
+					A hollow cage of calcium that used to hold my heart
+					I know I'm meant to be alone
+					I can feel it in my bones (Holding myself hostage by all of this emotional blockage)
+					And in my soul (Holding myself hostage by all of this emotional blockage)</em> 
+					― <b>Lord Of Loneliness</b></p>
+
+					<p data-song="Antarctica"><em>I am the Lord of Loneliness
+					I'll hold my breath, just spoke with Death
+					He said he hopes for the best
+					Told him I'm ropin' my neck
+					Then I woke up chokin' from the hole in my chest
+					Somehow I manage to function and hope
+					Every day got a lump in my throat
+					That's them pills swallowed whole
+					Smoke a blunt and then fuck all these hoes
+					End up humpin' they throat
+					Get the fuck away from me, I hate all of you, faithfully
+					This world was never made for me
+					Thankfully, I'm trained to see past all the lies, the ranks, the scenes
+					I'll shank my knees, then walk the plank and freeze</em> 
+					― <b>Lord Of Loneliness</b></p>
+
+					<p data-song="Noxygen"><em>The devil told me, "Never take a trip down memory lane"
+					I claim insane and blame the game for makin' me drained and stained
+					I was brought here just so I could fuck up and then die
+					Sweet suicide, I wanna be crucified
+					If life is a game do not deal me in just put a bullet in my fucking head
+					Fuck God, never gave me a response, so I listen to the devil instead
+					Yeah, bitch, steady wishing I was dead
+					(Six-six) Six ways to kill me
+					A switchblade will spill me
+					A pit of flames will fill me
+					Until I commit a oceanside suicide
+					Jump off a cliff and then land in the waves
+					Take me away and bring me back to where I came from</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="Grey Boys"><em>Kill a motherfucker just to pawn his chain
+					Tell me how it feels to be alive in a grave
+					Tell me where's your God when you're trying to get saved
+					Tell me where's your God when your body's full of pain
+					Tell me where's your God when your body's full of pain?</em> 
+					― <b>$crim</b></p>
+
+					<p data-song="Rag Round My Skull"><em>Fuck all of y'all, bitch
+					I don't give a fuck if $uicideboy$ never going to do shit
+					Still put the pistol in my mouth, blow the back of my head out
+					Now I'm gonna head out
+					Slit my fuckin' throat, throw me in a shark tank
+					Either that or you can leave my bloody body in the motherfuckin' boat
+					Fu-fu-fuck everything and fuck myself
+					Fuck what you think, leave me hangin' by a belt
+					Brain bangin' with the pain, grey stainin' is the game
+					Flames gainin' my domain
+					Stayin' in the same lane
+					I ain't never going to change
+					See me dancin' in the street when that motherfuckin' blood rains
+					Everybody else is dealt with
+					Bitch, keep your fame and your wealth, and shit</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="Paper Bag Mask"><em>Stoned boy can't relate to the problems of today
+					I've been explained, I claim these graves
+					I've been exposed, remain the stain
+					I gain new fame, increase my chains
+					These fuckboys slain, drain blood from veins</em> 
+					― <b>Lord Of Loneliness</b></p>
+
+					<p data-song="Novus Ordo Seclorum"><em>Fuck the police and judges
+					Fuck the priest and Gods judgin'
+					Fuck the state and the public
+					I wanna see tall skyscrapers crumbling
+					We all meet the shovel, don't have to act humble
+					Distance myself from the huddle—nothing but trouble
+					Find me a nice quiet place in the jungle
+					Keep it lowkey, keep it subtle
+					Only a couple allowed in my bubble
+					Puddle of blood the result of the hustle
+					Cuddle my drugs by the bundle
+					My frontal lobe constantly struggle, uh</em> 
+					― <b>Prince Mononoke The Frozen Shogun</b></p>
+
+					<p data-song="Low Key"><em>I got the drip, catch me duckin'
+					All of these bitches ain't fuckin' me, no
+					Can't hold a conversation with no one but my cousin
+					He tell me, "Don't worry, the money is comin'
+					These bitches is coming"
+					Yeah
+					The only question I got now, will I see it before I end up dug in the ground?
+					Lay low at the bottom of a tulip bed
+					They know Ruby got a lot of useless thread
+					Cut me open, let me rest, there ain't nothin' in my chest
+					A hollow cage that caused my death
+					I'm hauled away, just pause my breath</em> 
+					― <b>Ruby da Cherry</b></p>
+
+					<p data-song="Vincent Van Gogh Ain't Got Shit on Me"><em>Whi-White boy so cold, they call me $now, ho
+					Wanna fuck with me? I know $carecrow, ho
+					Call up Navigator, blow a bag of dope, ho
+					Starry Night, posted on the fuckin' boat, ho
+					No limit to my $uicidal thoughts
+					God, I bet you fuckin' chew through my own thoughts
+					Smoke a blunt, told her, "Who am I to cough when you the one who at a loss for the motherfuckin' words?"
+					Throw her to the fuckin' curb, no loss
+					Bitch, I be that fuckin' boss
+					Got frost on my shoulder, but I had to wipe it off
+					Cut my wrists just for the fucking gloss
+					Duck a pig, fuck a bitch how I floss
+					Fuckboys in my way, Christ coming off the cross
+					See them motherfuckers pause not knowing it depends on a fucking coin toss
+					Either way, I fucking lost
+					</em> 
+					― <b>Yung $now</b></p>
+
+					<p data-song="Ocean Side $uicide"><em>I'm the freshest motherfucker in the dirt
+					To be dead I had to put in work
+					Told them to bury me with a couple extra shirts
+					'Cause I know when I go to hell, the first one is gettin' burnt off
+					While you're trying to get turnt up, I'm trying to get turnt off
+					Swerve off a cliff, bitch, I'm burnin' a spliff, yeah
+					Feeling like I am just stuck in a GIF, come take a dip
+					</em> 
+					― <b>Lil Uzi</b></p>
+
+					<p data-song="Heavily Medicated"><em>All you rap about is death
+					Everything is so depressed
+					How you gonna get some press?
+					How you gonna come up next?
+					But I could give a fuck about a check
+					I'd rather go and cut my neck
+					Put a bullet up in my vest
+					Put a knife up in my chest and do some drugs, let people gossip
+					Under my tongue, yeah, that's suboxone
+					Oxycontin, bitch, I'm toxic
+					Dirty cracker, bitch, I'm rotten
+					</em> 
+					― <b>Yung Christ</b></p>
+
+					<p data-song="Heavily Medicated"><em>This ain't a gun up to my head, it's a brain hugger
+					Paintin' the ceilin' with little pieces
+					Killin' myself, I don't really need a reason
+					Death is the reason that I'm breathin'
+					Yeah, I'm beatin' my heart, but my heart doesn't stop beatin'
+					Guess I'm that dead motherfucker
+					Call me James $pleen, I'm that dead motherfucker
+					</em> 
+					― <b>James $pleen</b></p>
+
+					<p data-song="Trophy Kids"><em>The sayings true, a house ain't a home
+					'Cause even in my room, I lived in my headphones
+					</em> 
+					― <b>Devon Hendryx</b></p>
+
+					<p data-song="Welcome to the Hell Zone"><em>Corbin asked me if I'm scared of dying
+					The more I think about it, I'm kind of excited
+					Maybe that's because my mind is sick and demented
+					But death ain't shit but a new adventure
+					Death ain't shit but a new adventure
+					</em> 
+					― <b>Bobby Raps</b>
+				
+					<em>You don't see, but I've been holding back
+					Tempted to do off, end it all at that
+					You can help me if your aim is pure
+					But there's no medicine, you know the cure
+					And I could be low, but I fake, it's my fate
+					Ooh, and I could be alone, why wait on?
+					Uh</em>
+					― <b>Corbin</b>
+
+					<p data-song="Burdened"><em>No such thing as fairness
+					Wear that pain like it's brandished
+					Float around trapped in the same life, like dammit
+					Make me go insane, like I'm manic
+					My loved ones dying, my baby sister crying
+					The only thing I can say is it ain't time to panic
+					I don't need to pop cannon
+					My stomach doin' backflips
+					When it happen to felt like
+					A pedestrian runnin' into traffic
+					I'm over it, focusing
+					I'm living how I'm supposed to live
+					Hope that I can escape this hopelessness
+					When I just don't exist
+					</em> 
+					― <b>Bobby Raps</b>
+				
+					<em>Inside
+					Something
+					Doesn't feel right
+					Maybe
+					Because
+					I'm rotting
+					Try to
+					Hard to
+					Find something to hold onto
+					When I need
+					To let everything
+					Go</em>
+					― <b>Bobby Raps</b>
+
+					</p>
+
+
+                    <button type="button" class="lyrics-show-all">Show all</button>
+                </div>
+
+				<!--- Count lyrics from above and other stuff... --->
+                <script>
+                    (() => {
+                        const lyricsContainer = document.querySelector('.lyrics');
+                        if (!lyricsContainer) return;
+
+                        const countEl = lyricsContainer.querySelector('.lyrics-count');
+                        const randomBtn = lyricsContainer.querySelector('.lyrics-random');
+                        const searchInput = lyricsContainer.querySelector('.lyrics-search');
+                        const clearBtn = lyricsContainer.querySelector('.lyrics-search-clear');
+                        const showAllBtn = lyricsContainer.querySelector('.lyrics-show-all');
+                        if (!countEl || !randomBtn || !searchInput || !clearBtn || !showAllBtn) return;
+
+                        const lyricBlocks = Array.from(lyricsContainer.querySelectorAll('p')).filter((p) => {
+                            return !p.classList.contains('lyrics-intro') && !p.classList.contains('lyrics-count');
+                        });
+
+                        lyricBlocks.forEach((block) => {
+                            const artistEls = Array.from(block.querySelectorAll('b'));
+                            if (artistEls.length > 0) {
+                                const artists = artistEls.map((el) => el.textContent.trim()).filter(Boolean);
+                                if (artists.length > 0) {
+                                    block.dataset.artist = artists.join('|');
+                                }
+                            }
+
+                            artistEls.forEach((artistEl) => {
+                                const artistName = artistEl.textContent.trim();
+                                if (!artistName) return;
+                                artistEl.classList.add('lyrics-artist');
+                                artistEl.dataset.artist = artistName;
+                            });
+
+                            const songName = block.dataset.song;
+                            if (songName && !block.querySelector('.lyrics-song')) {
+                                const songEl = document.createElement('span');
+                                songEl.className = 'lyrics-song';
+                                songEl.dataset.song = songName;
+                                songEl.textContent = songName;
+                                block.insertBefore(songEl, block.firstChild);
+                            }
+                        });
+
+                        const totalCount = lyricBlocks.length;
+                        countEl.textContent = `𝄞 > ${totalCount} lyric${totalCount === 1 ? '' : 's'} so far.`;
+
+                        const PAGE_SIZE = 20;
+                        let visibleCount = Math.min(PAGE_SIZE, totalCount);
+                        const updateShowAllVisibility = (filteredLength) => {
+                            const shouldShow = filteredLength > visibleCount;
+                            showAllBtn.hidden = !shouldShow;
+                            showAllBtn.style.display = shouldShow ? 'block' : 'none';
+                        };
+
+                        let activeSong = null;
+                        let activeArtist = null;
+
+                        const applyFilters = (scrollTarget = null) => {
+                            const query = searchInput.value.trim().toLowerCase();
+                            const filteredBlocks = lyricBlocks.filter((block) => {
+                                const matchSong = !activeSong || block.dataset.song === activeSong;
+                                const artistData = block.dataset.artist ? block.dataset.artist.split('|') : [];
+                                const matchArtist = !activeArtist || artistData.includes(activeArtist);
+                                const songText = block.dataset.song ? block.dataset.song.toLowerCase() : '';
+                                const artistText = artistData.join(' ').toLowerCase();
+                                const lyricText = block.textContent.toLowerCase();
+                                const matchSearch = !query || songText.includes(query) || artistText.includes(query) || lyricText.includes(query);
+                                return matchSong && matchArtist && matchSearch;
+                            });
+
+                            lyricBlocks.forEach((block) => {
+                                block.classList.remove('lyrics-highlight');
+                                block.style.display = 'none';
+                            });
+
+                            filteredBlocks.forEach((block, index) => {
+                                block.style.display = index < visibleCount ? '' : 'none';
+                            });
+
+                            updateShowAllVisibility(filteredBlocks.length);
+
+                            lyricsContainer.querySelectorAll('.lyrics-song').forEach((el) => {
+                                el.classList.toggle('lyrics-filter-active', el.dataset.song === activeSong);
+                            });
+                            lyricsContainer.querySelectorAll('.lyrics-artist').forEach((el) => {
+                                el.classList.toggle('lyrics-filter-active', el.dataset.artist === activeArtist);
+                            });
+
+                            if (scrollTarget) {
+                                scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        };
+
+                        const toggleFilter = (type, value, scrollTarget) => {
+                            if (type === 'song') {
+                                activeSong = activeSong === value ? null : value;
+                            } else {
+                                activeArtist = activeArtist === value ? null : value;
+                            }
+                            applyFilters(scrollTarget);
+                        };
+
+                        lyricsContainer.addEventListener('click', (event) => {
+                            const songTarget = event.target.closest('.lyrics-song');
+                            if (songTarget) {
+                                toggleFilter('song', songTarget.dataset.song, songTarget.closest('p'));
+                                return;
+                            }
+
+                            const artistTarget = event.target.closest('.lyrics-artist');
+                            if (artistTarget) {
+                                toggleFilter('artist', artistTarget.dataset.artist, artistTarget.closest('p'));
+                            }
+                        });
+
+                        searchInput.addEventListener('input', () => {
+                            applyFilters();
+                            clearBtn.hidden = searchInput.value.trim().length === 0;
+                        });
+
+                        clearBtn.addEventListener('click', () => {
+                            searchInput.value = '';
+                            clearBtn.hidden = true;
+                            applyFilters();
+                            searchInput.focus();
+                        });
+
+                        let remaining = lyricBlocks.map((_, index) => index);
+                        let lastIndex = -1;
+
+                        const pickRandomIndex = (poolBlocks) => {
+                            const poolIndices = poolBlocks.map((block) => lyricBlocks.indexOf(block));
+                            if (!poolIndices.length) return null;
+
+                            if (!poolIndices.includes(lastIndex)) {
+                                remaining = poolIndices.slice();
+                            }
+
+                            if (remaining.length === 0) {
+                                remaining = poolIndices.slice();
+                            }
+
+                            const available = remaining.filter((idx) => idx !== lastIndex);
+                            const pool = available.length ? available : remaining;
+                            const pick = pool[Math.floor(Math.random() * pool.length)];
+
+                            remaining = remaining.filter((idx) => idx !== pick);
+                            lastIndex = pick;
+                            return pick;
+                        };
+
+                        const highlightLyric = (index) => {
+                            if (index === null) return;
+                            lyricBlocks.forEach((block) => block.classList.remove('lyrics-highlight'));
+                            const target = lyricBlocks[index];
+                            target.classList.add('lyrics-highlight');
+                            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        };
+
+                        randomBtn.addEventListener('click', () => {
+                            const visibleBlocks = lyricBlocks
+                                .filter((block, index) => index < visibleCount && block.style.display !== 'none');
+                            if (!visibleBlocks.length) return;
+                            const index = pickRandomIndex(visibleBlocks);
+                            highlightLyric(index);
+                        });
+
+                        showAllBtn.addEventListener('click', () => {
+                            visibleCount = totalCount;
+                            applyFilters();
+                        });
+
+                        applyFilters();
+
+                        document.addEventListener('keydown', (event) => {
+                            if (event.key.toLowerCase() !== 'r') return;
+                            if (event.ctrlKey || event.metaKey || event.altKey) return;
+                            if (event.target && ['input', 'textarea'].includes(event.target.tagName.toLowerCase())) {
+                                return;
+                            }
+                            randomBtn.click();
+                        });
+                    })();
+                </script>
+
+                <div class="article-footer">
+					<!--- use the script from scripts/update-last-updated.js for this --->
+					<p class="lastupdated">＃ Last updated on: <b>December 28, 2025</b></p>
+					<div class="button-container">
+					  <button onclick="shareLink(this)" class="share-button">
+						<i class="fa-solid fa-share"></i>
+						Share
+					  </button>
+					  <a href="/rss.xml" target="_blank" class="rss-icon">
+						<i class="fa-solid fa-rss"></i>
+					  </a>
+					</div>
+				  </div>
+				</div>
+
+			<!-- GLIGHTBOX LIBRARY -->
+			<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+			<script>
+			const lightbox = GLightbox({ selector: '.glightbox' });
+			</script>
+
+		<!-- PRISM.JS FOR SYNTAX HIGHLIGHTING -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+        <!---------THEMES------------->
+						<div id="theme_selector">
+							<div id="theme_list"></div>
+						</div>
+        
+</body>
+</html>

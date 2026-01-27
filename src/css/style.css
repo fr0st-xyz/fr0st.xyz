@@ -819,6 +819,13 @@ details[open] .update-content {
     display: inline-block;
 }
 
+.written-date {
+    color: var(--main-color);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+}
+
 .latest-status a,
 .latest-status a:link,
 .latest-status a:visited,

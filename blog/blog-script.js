@@ -34,6 +34,12 @@ const loadArticles = async () => {
 const ARTICLES_PER_PAGE = 8;
 let currentPage = 1;
 let currentSearch = '';
+let paginationKeyHandlerBound = false;
+let paginationKeyState = {
+    currentPage: 1,
+    totalPages: 1,
+    onPageChange: null,
+};
 
 const normalizePath = (path) => {
     if (path.length > 1 && path.endsWith('/')) {
@@ -275,6 +281,27 @@ const renderPagination = (currentPage, totalPages, onPageChange) => {
     pagination.appendChild(prevButton);
     pagination.appendChild(pageInfo);
     pagination.appendChild(nextButton);
+    paginationKeyState.currentPage = currentPage;
+    paginationKeyState.totalPages = totalPages;
+    paginationKeyState.onPageChange = onPageChange;
+
+    if (!paginationKeyHandlerBound) {
+        document.addEventListener('keydown', (event) => {
+            if (event.repeat) return;
+            if (event.target && ['input', 'textarea', 'select'].includes(event.target.tagName.toLowerCase())) {
+                return;
+            }
+            if (!paginationKeyState.onPageChange) return;
+
+            if (event.key === 'ArrowLeft' && paginationKeyState.currentPage > 1) {
+                paginationKeyState.onPageChange(paginationKeyState.currentPage - 1);
+            }
+            if (event.key === 'ArrowRight' && paginationKeyState.currentPage < paginationKeyState.totalPages) {
+                paginationKeyState.onPageChange(paginationKeyState.currentPage + 1);
+            }
+        });
+        paginationKeyHandlerBound = true;
+    }
 };
 
 /**
