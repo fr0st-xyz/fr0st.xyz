@@ -453,7 +453,7 @@ function createBirthdayPopup(age) {
                     <p class="birthday-age">fr0st is now <span class="age-highlight">${age}</span> years old!</p>
                     <p class="birthday-message">Want to send a birthday message?</p>
                     <div class="birthday-buttons">
-                        <a href="mailto:fr0st.xyz@tuta.io?subject=Happy Birthday!" class="birthday-btn email-btn">
+                        <a href="mailto:yo@fr0st.xyz?subject=Happy Birthday!" class="birthday-btn email-btn">
                             <i class="fa-solid fa-envelope"></i>
                             Send Email
                         </a>

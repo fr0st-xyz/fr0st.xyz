@@ -40,7 +40,7 @@ const REPO_ROOT = join(__dirname, "..");
 const ARTICLES_JSON = join(REPO_ROOT, "blog", "articles.json");
 const RSS_PATH = join(REPO_ROOT, "rss.xml");
 const SITE_URL = "https://fr0st.xyz";
-const AUTHOR = "fr0st.xyz@tuta.io (fr0st)";
+const AUTHOR = "yo@fr0st.xyz (fr0st)";
 
 /**
  * ESCAPE XML SPECIAL CHARACTERS
