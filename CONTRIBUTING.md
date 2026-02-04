@@ -35,14 +35,14 @@ If you're unsure about something or need assistance, feel free to reach out to m
 
 If you encounter a bug, please help me fix it by following these steps:
 
-1. Check if the issue has already been reported by searching through the [issues](https://github.com/fr0st-iwnl/fr0st.netlify.app/pulls).
+1. Check if the issue has already been reported by searching through the [issues](https://github.com/fr0st-xyz/fr0st.netlify.app/pulls).
 2. If not, open a new issue with a clear description of the problem and steps to reproduce it.
 
 ## Feature Requests
 
 Have a great idea for a new feature? We'd love to hear it! Follow these steps:
 
-1. Check if the feature has already been requested by searching through the [issues](https://github.com/fr0st-iwnl/fr0st.netlify.app/pulls).
+1. Check if the feature has already been requested by searching through the [issues](https://github.com/fr0st-xyz/fr0st.netlify.app/pulls).
 2. If not, open a new issue and describe the feature you'd like to see.
 
 ## Feedback

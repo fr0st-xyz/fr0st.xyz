@@ -1,7 +1,7 @@
 # Netlify (_redirects)
 # if u dont use Netlify u can delete this file.
 
-/winconfigs  https://raw.githubusercontent.com/fr0st-iwnl/WinConfigs/refs/heads/master/Scripts/1.%20Setup/install.ps1 301
+/winconfigs  https://raw.githubusercontent.com/fr0st-xyz/WinConfigs/refs/heads/master/Scripts/1.%20Setup/install.ps1 301
 https://fr0st.netlify.app/* https://fr0st.xyz/:splat 301!
 
 # old article URLs from fr0st.xyz
