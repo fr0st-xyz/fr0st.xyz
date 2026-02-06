@@ -133,6 +133,10 @@ const updatePublishedDate = (dateText) => {
     "Lettuce",
     "Magazine",
     "Stop Calling Us Horrorcore",
+    "Garden",
+    "420",
+    "Crystals",
+    "Body",
     "close the world. open the next."
 ];
 
