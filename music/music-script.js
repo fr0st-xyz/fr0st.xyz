@@ -1857,10 +1857,16 @@ function mapPresenceToCardState(presence) {
         return { mode: 'idle' };
     }
 
+    const normalizeTypography = (value) => {
+        return String(value || '')
+            .replace(/[‘’]/g, "'")
+            .replace(/[“”]/g, '"');
+    };
+
     const timestamps = spotify.timestamps || {};
     const start = Number(timestamps.start);
     const end = Number(timestamps.end);
-    const normalizedArtist = (spotify.artist || 'Unknown artist')
+    const normalizedArtist = normalizeTypography(spotify.artist || 'Unknown artist')
         .split(';')
         .map((part) => part.trim())
         .filter(Boolean)
@@ -1883,7 +1889,7 @@ function mapPresenceToCardState(presence) {
 
     return {
         mode: 'playing',
-        song: spotify.song || 'Unknown song',
+        song: normalizeTypography(spotify.song || 'Unknown song'),
         artistName: normalizedArtist,
         albumArtUrl: spotify.album_art_url || DEFAULT_NOW_PLAYING_ART,
         trackId: spotify.track_id || '',
