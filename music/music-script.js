@@ -6,6 +6,13 @@
 
 import '/src/js/components/base.js';
 
+const LANYARD_USER_ID = '805553723597389866';
+const LANYARD_API_URL = 'https://api.lanyard.rest/v1/users';
+const LANYARD_SOCKET_URL = 'wss://api.lanyard.rest/socket';
+const DEFAULT_NOW_PLAYING_ART = '/src/media/PFPs/pfp-2.png';
+const LISTENING_DISPLAY_NAME = 'fr0st';
+const SPOTIFY_PROFILE_URL = 'https://open.spotify.com/user/sfz4qpew7rrx9e4tgacwlig9l';
+
 const ARTIST_CONFIG = {
     "$uicideboy$": 287,
     "Stromae": 40,
@@ -1616,6 +1623,9 @@ function initializeMusicPage() {
     const mainContainer = document.querySelector('.music-container');
     if (!mainContainer) return;
 
+    const listeningCard = createListeningCard();
+    const welcomeSection = createWelcomeSection();
+
     // Create filter and navigation menu
     const filterMenu = createFilterMenu();
     
@@ -1628,7 +1638,7 @@ function initializeMusicPage() {
     // Create Spotify footer
     const spotifyFooter = `
         <div class="spotify-footer">
-            <a href="https://open.spotify.com/user/sfz4qpew7rrx9e4tgacwlig9l" target="_blank" rel="noopener noreferrer" class="spotify-link">
+            <a href="${SPOTIFY_PROFILE_URL}" target="_blank" rel="noopener noreferrer" class="spotify-link">
                 <i class="fab fa-spotify"></i> Follow My Spotify Account
             </a>
         </div>
@@ -1636,6 +1646,8 @@ function initializeMusicPage() {
     
     // Combine everything
     mainContainer.innerHTML = `
+        ${welcomeSection}
+        ${listeningCard}
         ${filterMenu}
         ${artistStats}
         <div class="artist-sections-container">
@@ -1645,13 +1657,42 @@ function initializeMusicPage() {
     `;
     
     initializeFilters();
+    initializeLanyardCard();
 }
 
-function createFilterMenu() {
-    const artistOptions = artistData.map(artist => 
-        `<option value="${artist.name}">${artist.name}</option>`
-    ).join('');
-    
+function createListeningCard() {
+    return `
+        <section class="now-playing-card" id="now-playing-card" aria-live="polite">
+            <div class="now-playing-art-wrap">
+                <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="now-playing-art-link" id="now-playing-link">
+                    <img
+                        id="now-playing-art"
+                        class="now-playing-art"
+                        src="${DEFAULT_NOW_PLAYING_ART}"
+                        alt="Album art"
+                    >
+                </a>
+            </div>
+            <div class="now-playing-copy">
+                <p class="now-playing-kicker">Listening To Spotify</p>
+                <h3 class="now-playing-title" id="now-playing-title">Loading Spotify status...</h3>
+                <p class="now-playing-artist" id="now-playing-artist">Waiting for Lanyard...</p>
+                <div class="now-playing-progress" id="now-playing-progress" hidden>
+                    <div class="now-playing-progress-times">
+                        <span id="now-playing-elapsed">0:00</span>
+                        <span id="now-playing-duration">0:00</span>
+                    </div>
+                    <div class="now-playing-progress-track" aria-hidden="true">
+                        <span class="now-playing-progress-fill" id="now-playing-progress-fill"></span>
+                    </div>
+                </div>
+                <p class="now-playing-meta" id="now-playing-meta">This card updates live when Spotify activity changes.</p>
+            </div>
+        </section>
+    `;
+}
+
+function createWelcomeSection() {
     return `
         <div class="welcome-section">
             <div class="welcome-content">
@@ -1660,10 +1701,19 @@ function createFilterMenu() {
                 </div>
                 <p>This is where I share my favorite artists and songs. You'll find a mix of different genres and styles that I enjoy listening to. Feel free to explore my music taste and discover some great tunes!</p>
                 <div class="last-updated">
-                    Last updated: December 24 2025
+                    Last updated: December 24, 2025
                 </div>
             </div>
         </div>
+    `;
+}
+
+function createFilterMenu() {
+    const artistOptions = artistData.map(artist => 
+        `<option value="${artist.name}">${artist.name}</option>`
+    ).join('');
+    
+    return `
         <div class="filter-menu">
             <div class="filter-section">
                 <label class="section-title">Jump to Artist</label>
@@ -1710,6 +1760,267 @@ function createFilterMenu() {
             </div>
         </div>
     `;
+}
+
+function updateLanyardCard(state = {}) {
+    const card = document.getElementById('now-playing-card');
+    const art = document.getElementById('now-playing-art');
+    const link = document.getElementById('now-playing-link');
+    const kicker = document.querySelector('.now-playing-kicker');
+    const title = document.getElementById('now-playing-title');
+    const artist = document.getElementById('now-playing-artist');
+    const progress = document.getElementById('now-playing-progress');
+    const progressFill = document.getElementById('now-playing-progress-fill');
+    const elapsed = document.getElementById('now-playing-elapsed');
+    const duration = document.getElementById('now-playing-duration');
+    const meta = document.getElementById('now-playing-meta');
+
+    if (!card || !art || !link || !kicker || !title || !artist || !progress || !progressFill || !elapsed || !duration || !meta) return;
+
+    const {
+        mode = 'loading',
+        song = '',
+        artistName = '',
+        albumArtUrl = DEFAULT_NOW_PLAYING_ART,
+        trackId = '',
+        statusText = '',
+        elapsedLabel = '0:00',
+        durationLabel = '0:00',
+        progressPercent = 0
+    } = state;
+
+    const setTextIfChanged = (element, value) => {
+        if (!element) {
+            return;
+        }
+        if (element.textContent !== value) {
+            element.textContent = value;
+        }
+    };
+
+    card.dataset.state = mode;
+    art.src = albumArtUrl;
+    link.href = trackId ? `https://open.fixspotify.com/track/${trackId}` : SPOTIFY_PROFILE_URL;
+
+    if (mode === 'playing') {
+        setTextIfChanged(kicker, 'Listening To Spotify');
+        art.alt = `${song} album art`;
+        setTextIfChanged(title, song);
+        setTextIfChanged(artist, artistName);
+        progress.hidden = false;
+        setTextIfChanged(elapsed, elapsedLabel);
+        setTextIfChanged(duration, durationLabel);
+        progressFill.style.width = `${progressPercent}%`;
+        setTextIfChanged(meta, statusText || '');
+        return;
+    }
+
+    art.alt = 'Spotify status artwork';
+    progress.hidden = true;
+    elapsed.textContent = '0:00';
+    duration.textContent = '0:00';
+    progressFill.style.width = '0%';
+
+    if (mode === 'config') {
+        setTextIfChanged(kicker, 'Listening To Spotify');
+        setTextIfChanged(title, 'Lanyard card is not configured yet.');
+        setTextIfChanged(artist, 'Add your Discord user ID in music/music-script.js.');
+        setTextIfChanged(meta, 'After that, this card will update automatically.');
+        return;
+    }
+
+    if (mode === 'offline') {
+        setTextIfChanged(kicker, 'Listening To Spotify');
+        setTextIfChanged(title, 'Could not reach Lanyard right now.');
+        setTextIfChanged(artist, 'The card will retry automatically.');
+        setTextIfChanged(meta, statusText || 'Spotify activity is temporarily unavailable.');
+        return;
+    }
+
+    if (mode === 'idle') {
+        setTextIfChanged(kicker, '');
+        setTextIfChanged(title, `${LISTENING_DISPLAY_NAME} is not listening to spotify right now.`);
+        setTextIfChanged(artist, '');
+        setTextIfChanged(meta, '');
+        return;
+    }
+
+    setTextIfChanged(kicker, 'Listening To Spotify');
+    setTextIfChanged(title, 'Loading Spotify status...');
+    setTextIfChanged(artist, 'Waiting for Lanyard...');
+    setTextIfChanged(meta, 'Checking your current Discord presence.');
+}
+
+function mapPresenceToCardState(presence) {
+    const spotify = presence?.spotify;
+    if (!presence?.listening_to_spotify || !spotify) {
+        return { mode: 'idle' };
+    }
+
+    const timestamps = spotify.timestamps || {};
+    const start = Number(timestamps.start);
+    const end = Number(timestamps.end);
+    const normalizedArtist = (spotify.artist || 'Unknown artist')
+        .split(';')
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .join(', ');
+
+    const formatTime = (ms) => {
+        if (!Number.isFinite(ms) || ms < 0) {
+            return '0:00';
+        }
+        const totalSeconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes}:${String(seconds).padStart(2, '0')}`;
+    };
+
+    const totalMs = Number.isFinite(start) && Number.isFinite(end) ? Math.max(0, end - start) : 0;
+    const elapsedMs = Number.isFinite(start) ? Math.max(0, Date.now() - start) : 0;
+    const safeElapsed = totalMs ? Math.min(elapsedMs, totalMs) : elapsedMs;
+    const progressPercent = totalMs > 0 ? Math.min(100, (safeElapsed / totalMs) * 100) : 0;
+
+    return {
+        mode: 'playing',
+        song: spotify.song || 'Unknown song',
+        artistName: normalizedArtist,
+        albumArtUrl: spotify.album_art_url || DEFAULT_NOW_PLAYING_ART,
+        trackId: spotify.track_id || '',
+        statusText: '',
+        elapsedLabel: formatTime(safeElapsed),
+        durationLabel: formatTime(totalMs),
+        progressPercent
+    };
+}
+
+function initializeLanyardCard() {
+    if (LANYARD_USER_ID === 'PUT_YOUR_DISCORD_USER_ID_HERE') {
+        updateLanyardCard({ mode: 'config' });
+        return;
+    }
+
+    let heartbeatTimer = null;
+    let reconnectTimer = null;
+    let progressTimer = null;
+    let socket = null;
+    let latestPresence = null;
+
+    const clearTimers = () => {
+        if (heartbeatTimer) {
+            clearInterval(heartbeatTimer);
+            heartbeatTimer = null;
+        }
+        if (reconnectTimer) {
+            clearTimeout(reconnectTimer);
+            reconnectTimer = null;
+        }
+        if (progressTimer) {
+            clearInterval(progressTimer);
+            progressTimer = null;
+        }
+    };
+
+    const scheduleReconnect = () => {
+        clearTimers();
+        reconnectTimer = window.setTimeout(connectSocket, 5000);
+    };
+
+    const applyPresence = (presence) => {
+        latestPresence = presence;
+        updateLanyardCard(mapPresenceToCardState(presence));
+
+        if (progressTimer) {
+            clearInterval(progressTimer);
+            progressTimer = null;
+        }
+
+        if (presence?.listening_to_spotify && presence?.spotify?.timestamps?.start && presence?.spotify?.timestamps?.end) {
+            progressTimer = window.setInterval(() => {
+                updateLanyardCard(mapPresenceToCardState(latestPresence));
+            }, 1000);
+        }
+    };
+
+    const fetchInitialState = async () => {
+        try {
+            const response = await fetch(`${LANYARD_API_URL}/${LANYARD_USER_ID}`, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            const payload = await response.json();
+            applyPresence(payload?.data || null);
+        } catch (error) {
+            updateLanyardCard({
+                mode: 'offline',
+                statusText: 'Initial Lanyard request failed.'
+            });
+        }
+    };
+
+    const connectSocket = () => {
+        if (socket && (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING)) {
+            return;
+        }
+
+        socket = new WebSocket(LANYARD_SOCKET_URL);
+
+        socket.addEventListener('message', (event) => {
+            let payload;
+            try {
+                payload = JSON.parse(event.data);
+            } catch {
+                return;
+            }
+
+            if (payload.op === 1) {
+                const heartbeatInterval = Number(payload.d?.heartbeat_interval) || 30000;
+                clearTimers();
+                heartbeatTimer = window.setInterval(() => {
+                    if (socket?.readyState === WebSocket.OPEN) {
+                        socket.send(JSON.stringify({ op: 3 }));
+                    }
+                }, heartbeatInterval);
+
+                socket.send(JSON.stringify({
+                    op: 2,
+                    d: { subscribe_to_id: LANYARD_USER_ID }
+                }));
+                return;
+            }
+
+            if (payload.op !== 0) {
+                return;
+            }
+
+            if (payload.t === 'INIT_STATE') {
+                applyPresence(payload.d || null);
+                return;
+            }
+
+            if (payload.t === 'PRESENCE_UPDATE') {
+                applyPresence(payload.d || null);
+            }
+        });
+
+        socket.addEventListener('close', () => {
+            updateLanyardCard({
+                mode: 'offline',
+                statusText: 'Realtime connection lost. Retrying...'
+            });
+            scheduleReconnect();
+        });
+
+        socket.addEventListener('error', () => {
+            if (socket) {
+                socket.close();
+            }
+        });
+    };
+
+    updateLanyardCard({ mode: 'loading' });
+    fetchInitialState();
+    connectSocket();
 }
 
 function applyFilters() {
