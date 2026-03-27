@@ -12,6 +12,9 @@ const LANYARD_SOCKET_URL = 'wss://api.lanyard.rest/socket';
 const DEFAULT_NOW_PLAYING_ART = '/src/media/PFPs/pfp-2.png';
 const LISTENING_DISPLAY_NAME = 'fr0st';
 const SPOTIFY_PROFILE_URL = 'https://open.spotify.com/user/sfz4qpew7rrx9e4tgacwlig9l';
+const LANYARD_CARD_CACHE_KEY = 'music:lanyard-card-state';
+const LANYARD_LOADING_DELAY_MS = 220;
+const LANYARD_OFFLINE_DELAY_MS = 1200;
 
 const ARTIST_CONFIG = {
     "$uicideboy$": 287,
@@ -1812,6 +1815,7 @@ function updateLanyardCard(state = {}) {
         setTextIfChanged(duration, durationLabel);
         progressFill.style.width = `${progressPercent}%`;
         setTextIfChanged(meta, statusText || '');
+        sessionStorage.setItem(LANYARD_CARD_CACHE_KEY, JSON.stringify(state));
         return;
     }
 
@@ -1834,6 +1838,7 @@ function updateLanyardCard(state = {}) {
         setTextIfChanged(title, 'Could not reach Lanyard right now.');
         setTextIfChanged(artist, 'The card will retry automatically.');
         setTextIfChanged(meta, statusText || 'Spotify activity is temporarily unavailable.');
+        sessionStorage.setItem(LANYARD_CARD_CACHE_KEY, JSON.stringify(state));
         return;
     }
 
@@ -1842,6 +1847,7 @@ function updateLanyardCard(state = {}) {
         setTextIfChanged(title, `${LISTENING_DISPLAY_NAME} is not listening to spotify right now.`);
         setTextIfChanged(artist, '');
         setTextIfChanged(meta, '');
+        sessionStorage.setItem(LANYARD_CARD_CACHE_KEY, JSON.stringify(state));
         return;
     }
 
@@ -1849,6 +1855,24 @@ function updateLanyardCard(state = {}) {
     setTextIfChanged(title, 'Loading Spotify status...');
     setTextIfChanged(artist, 'Waiting for Lanyard...');
     setTextIfChanged(meta, 'Checking your current Discord presence.');
+}
+
+function getCachedLanyardCardState() {
+    try {
+        const rawState = sessionStorage.getItem(LANYARD_CARD_CACHE_KEY);
+        if (!rawState) {
+            return null;
+        }
+
+        const parsedState = JSON.parse(rawState);
+        if (!parsedState || !['playing', 'idle', 'offline'].includes(parsedState.mode)) {
+            return null;
+        }
+
+        return parsedState;
+    } catch {
+        return null;
+    }
 }
 
 function mapPresenceToCardState(presence) {
@@ -1909,6 +1933,8 @@ function initializeLanyardCard() {
     let heartbeatTimer = null;
     let reconnectTimer = null;
     let progressTimer = null;
+    let loadingTimer = null;
+    let offlineTimer = null;
     let socket = null;
     let latestPresence = null;
 
@@ -1925,6 +1951,14 @@ function initializeLanyardCard() {
             clearInterval(progressTimer);
             progressTimer = null;
         }
+        if (loadingTimer) {
+            clearTimeout(loadingTimer);
+            loadingTimer = null;
+        }
+        if (offlineTimer) {
+            clearTimeout(offlineTimer);
+            offlineTimer = null;
+        }
     };
 
     const scheduleReconnect = () => {
@@ -1934,6 +1968,14 @@ function initializeLanyardCard() {
 
     const applyPresence = (presence) => {
         latestPresence = presence;
+        if (loadingTimer) {
+            clearTimeout(loadingTimer);
+            loadingTimer = null;
+        }
+        if (offlineTimer) {
+            clearTimeout(offlineTimer);
+            offlineTimer = null;
+        }
         updateLanyardCard(mapPresenceToCardState(presence));
 
         if (progressTimer) {
@@ -1957,10 +1999,17 @@ function initializeLanyardCard() {
             const payload = await response.json();
             applyPresence(payload?.data || null);
         } catch (error) {
-            updateLanyardCard({
-                mode: 'offline',
-                statusText: 'Initial Lanyard request failed.'
-            });
+            if (loadingTimer) {
+                clearTimeout(loadingTimer);
+                loadingTimer = null;
+            }
+            offlineTimer = window.setTimeout(() => {
+                updateLanyardCard({
+                    mode: 'offline',
+                    statusText: 'Initial Lanyard request failed.'
+                });
+                offlineTimer = null;
+            }, LANYARD_OFFLINE_DELAY_MS);
         }
     };
 
@@ -2010,10 +2059,20 @@ function initializeLanyardCard() {
         });
 
         socket.addEventListener('close', () => {
-            updateLanyardCard({
-                mode: 'offline',
-                statusText: 'Realtime connection lost. Retrying...'
-            });
+            if (loadingTimer) {
+                clearTimeout(loadingTimer);
+                loadingTimer = null;
+            }
+            if (offlineTimer) {
+                clearTimeout(offlineTimer);
+            }
+            offlineTimer = window.setTimeout(() => {
+                updateLanyardCard({
+                    mode: 'offline',
+                    statusText: 'Realtime connection lost. Retrying...'
+                });
+                offlineTimer = null;
+            }, LANYARD_OFFLINE_DELAY_MS);
             scheduleReconnect();
         });
 
@@ -2024,7 +2083,16 @@ function initializeLanyardCard() {
         });
     };
 
-    updateLanyardCard({ mode: 'loading' });
+    const cachedState = getCachedLanyardCardState();
+    if (cachedState) {
+        updateLanyardCard(cachedState);
+    } else {
+        loadingTimer = window.setTimeout(() => {
+            updateLanyardCard({ mode: 'loading' });
+            loadingTimer = null;
+        }, LANYARD_LOADING_DELAY_MS);
+    }
+
     fetchInitialState();
     connectSocket();
 }
