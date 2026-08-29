@@ -1803,7 +1803,7 @@ function updateLanyardCard(state = {}) {
 
     card.dataset.state = mode;
     art.src = albumArtUrl;
-    link.href = trackId ? `https://open.spotify.com/track/${trackId}` : SPOTIFY_PROFILE_URL;
+    link.href = trackId ? `https://open.fixspotify.com/track/${trackId}` : SPOTIFY_PROFILE_URL;
 
     if (mode === 'playing') {
         setTextIfChanged(kicker, 'Listening To Spotify');
